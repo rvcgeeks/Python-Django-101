@@ -56,8 +56,8 @@ Happy Coding!
 Regards
 Rajas Chavadekar
 
-linkedin.com/in/rvchavadekar
-github.com/rvcgeeks
+[Connect on linkedin](linkedin.com/in/rvchavadekar)
+[Fork from github](github.com/rvcgeeks)
 
 
 ## Mentor
