@@ -26,10 +26,12 @@ In this session you will learn the basics and directory structure of a django ap
 ### Day 1: (Saturday 24/10/2020 3 to ~5 pm)
 
 First 15 min 
+
 1) getting introduced to the framework 
 2) getting to know django project directory structure 
 
 Next ~45 min : Hands on : simple login 
+
 3) Start coding a simple login application
 4) Understanding the sessions
 5) Importance of input validation in login system
@@ -38,9 +40,11 @@ Next ~45 min : Hands on : simple login
 ### Day 2: (Monday  26/10/2020 from 4 pm)
 
 First 30 min:
+
 1) Troubleshooting of bugs and problems in your project
 
 Next 50 min:
+
 2) Adding a simple chart from csv in django.
 3) Creating Tables in django
 4) dynamic charts using Ajax in django
