@@ -17,7 +17,7 @@ In this session you will learn the basics and directory structure of a django ap
 ## Course Overview:
 (note that timings may vary according to college schedule and your preferences)
 
-## Day 0: (Today)
+### Day 0: (Wednesday 21/10/2020)
 1) installation of python
 2) installation of django framework
 (I will troubleshoot your problems on group itself) 
