@@ -37,7 +37,7 @@ Next ~45 min : Hands on : simple login
 5) Importance of input validation in login system
 
 
-### Day 2: (Monday  26/10/2020 from 4 pm)
+### Day 2: (Tuesday  27/10/2020 3 to ~5 pm)
 
 First 30 min:
 
