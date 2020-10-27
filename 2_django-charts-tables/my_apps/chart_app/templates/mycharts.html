@@ -1,0 +1,160 @@
+
+<!-- created by rvcgeeks <github.com/rvcgeeks> (linkedin.com/in/rvchavadekar) @ Pune, India -->
+
+{% block content %}
+  
+    <h1 align="center"> COVID-19 Cases in India </h1>
+    <button class="btn btn-primary float-right" onclick ="location.href = '{% url 'mylogout' %}' " >Logout</button>
+    <div id="chartContainer3" style="width: 100%; height: 1000px;display: inline-block;">
+        <canvas id="column-chart"></canvas>
+    </div><br/>
+    <div id="chartContainer1" style="width: 45%; height: 500px;display: inline-block;">
+        <canvas id="pie-chart"></canvas>
+    </div> 
+    <div id="chartContainer2" style="width: 45%; height: 500px;display: inline-block;">
+        <canvas id="time-chart"></canvas>
+    </div>
+
+    <div class="container">
+        <h2>State Wise Updates</h2>
+        <p>India has crossed the 10 crore-mark in conducting tests for detection of Covid-19 with 14,42,722 tests being done in a span of 24 hours, even as the cumulative positivity rate continues to decline, the Union health ministry said on Friday.</p>                                                                                      
+        <div class="table-responsive">          
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>State</th>
+                        <th>Confirmed</th>
+                        <th>Recovered</th>
+                        <th>Deaths</th>
+                        <th>Active</th>
+                        <th>Update time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    {% for i in table_data %}
+                    <tr>
+                        <td>{{ i.0 }}</td>
+                        <td>{{ i.1 }}</td>
+                        <td>{{ i.2 }}</td>
+                        <td>{{ i.3 }}</td>
+                        <td>{{ i.4 }}</td>
+                        <td>{{ i.5 }}</td>
+                    </tr>
+                    {% endfor %}
+        
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+    {% load static %}
+    <script src="{% static 'js/moment.min.js' %}"></script>
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  
+    <script>
+    
+    var config1= {
+        type: 'pie',
+        data: {
+            datasets: [{
+            data: {{ pie_data|safe }},
+            backgroundColor: [
+                '#ff0000', '#0000ff', '#000000'
+            ],
+            }],
+            labels: ['Confirmed', 'Recovered', 'Reduced']
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Latest statistics in India'
+            }
+        }
+    };
+    
+
+    var config2 = {
+        type: 'line',
+        data: { 
+            datasets: [{
+                label: 'Confirmed',
+                borderColor: 'red',
+                data: {{ confirmed|safe }}
+            }, {
+                label: 'Recovered',
+                borderColor: 'blue',
+                data: {{ recovered|safe }}
+            }, {
+                label: 'Reduced',
+                borderColor: 'black',
+                data: {{ reduced|safe }}
+            }] 
+        },
+        options: {
+            scales: {
+            xAxes: [{
+                type: 'time'
+            }]
+            },
+            title: {
+                display: true,
+                text: 'Time wise COVID-19 Cases in India'
+            }
+        }
+    };
+
+    
+    var config3 = {
+        type: 'bar',
+        data: {
+            labels: {{ states|safe }},
+            datasets: [{
+                label: 'Confirmed',
+                data: {{ statewise_confirmed|safe }},
+                backgroundColor: '#ff0000'
+            }, {
+                label: 'Recovered',
+                data: {{ statewise_recovered|safe }},
+                backgroundColor: '#0000ff'
+            }, {
+                label: 'Reduced',
+                data: {{ statewise_reduced|safe }},
+                backgroundColor: '#000000'
+            }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+                position: 'right' // place legend on the right side of chart
+            },
+            scales: {
+                xAxes: [{
+                    stacked: true // this should be set to make the bars stacked
+                }],
+                yAxes: [{
+                    stacked: true // this also..
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Latest State Wise COVID-19 Cases in India'
+            }
+        }
+    };
+    
+    window.onload = function() {
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        var chart1 = new Chart(ctx, config1);
+        var ctx = document.getElementById('time-chart').getContext('2d');
+        var chart2 = new Chart(ctx, config2);
+        var ctx = document.getElementById('column-chart').getContext('2d');
+        var chart3 = new Chart(ctx, config3);
+    };
+
+  </script>
+
+{% endblock %}
