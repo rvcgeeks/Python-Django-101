@@ -1,0 +1,59 @@
+
+<!-- created by rvcgeeks <github.com/rvcgeeks> (linkedin.com/in/rvchavadekar) @ Pune, India -->
+
+{% block content %}
+  
+    <h1 align="center"> PC stats </h1> <button class="btn btn-primary float-right" onclick ="location.href = '{% url 'mylogout' %}' " >Logout</button>
+    <div id="chartContainer2" style="width: 100%; height: 1000px;display: inline-block;"><canvas id="time-chart"></canvas></div>
+
+    {% load static %}
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  
+    <script>
+
+    var config = {
+        type: 'line',
+        data: {
+            labels: {{ secs_labels|safe }},
+            datasets: [{
+                label: 'CPU Util',
+                borderColor: 'red',
+                data: {{ cpu_util_frame|safe }}
+            }, {
+                label: 'RAM',
+                borderColor: 'blue',
+                data: {{ ram_util_frame|safe }}
+            }] 
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'CPU and RAM usage'
+            },
+            animation: {
+                duration: 0
+            }
+        }
+    };
+    
+    var ctx = document.getElementById('time-chart').getContext('2d');
+    var chart = new Chart(ctx, config);
+    
+    setInterval(function(){
+        $.ajax({
+            url:'tick_update',
+            success: function(recvdata){
+                chart.data.datasets[0].data = recvdata.cpu_frame;
+                chart.data.datasets[1].data = recvdata.ram_frame;
+                console.log(recvdata)
+                chart.update();
+            }   
+        });
+    }, 100);
+
+  </script>
+
+{% endblock %}
